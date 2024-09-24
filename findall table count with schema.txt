@@ -1,0 +1,26 @@
+SELECT 
+    t.name AS table_name, 
+    p.rows AS row_count
+FROM 
+    sys.tables AS t
+    INNER JOIN sys.partitions AS p ON t.object_id = p.object_id
+WHERE 
+    p.index_id IN (0, 1)
+    AND SCHEMA_NAME(t.schema_id) = 'hpcar'
+ORDER BY 
+    row_count;
+
+
+
+-------hpcar---------------
+	
+select CONCAT('select ''',table_name,''' as table_name , count(*) as row_count from ',TABLE_CATALOG,'.',TABLE_SCHEMA,'.',TABLE_NAME,' union all')
+ from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA like 'hpcar%'
+
+
+-------hpgeneral------------
+ 
+
+select CONCAT('select ''',table_name,''' as table_name , count(*) as row_count from ',TABLE_CATALOG,'.',TABLE_SCHEMA,'.',TABLE_NAME,' union all')
+ from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA like 'hpg%'
+

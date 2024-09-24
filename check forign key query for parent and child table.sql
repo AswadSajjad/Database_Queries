@@ -1,0 +1,1 @@
+WITH FK_CTE AS (    SELECT         OBJECT_NAME(f.parent_object_id) AS ChildTable,        OBJECT_NAME(f.referenced_object_id) AS ParentTable,        ROW_NUMBER() OVER (ORDER BY OBJECT_NAME(f.parent_object_id)) AS Seq    FROM sys.foreign_keys AS f)SELECT  ChildTable, ParentTableFROM FK_CTEORDER BY Seq;
